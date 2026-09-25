@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/apl-logo.png" />
+  <link rel="apple-touch-icon" href="/apl-logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APL Electric Company | Aba Power Limited (188MW Integrated IPP)</title>
+  <meta name="description"
+    content="APL Electric Company (Aba Power Limited) operates Nigeria's premier integrated independent power utility, delivering 188MW generation and smart distribution to the 9 ring-fenced LGAs of Abia State." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS Engine with APL Blue & Gold theme -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            apl: {
+              blue: '#0072CE',
+              'blue-hover': '#005fb3',
+              light: '#38BDF8',
+              gold: '#F5B800',
+              'gold-hover': '#e0a800',
+              dark: '#030f1e',
+              card: '#071e3d',
+              navy: '#0b284e'
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-[#030f1e] text-slate-100 font-sans antialiased selection:bg-[#0072CE] selection:text-white">
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>

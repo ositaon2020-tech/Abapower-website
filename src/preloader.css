@@ -1,0 +1,117 @@
+/* ============================================================
+   APL PRELOADER
+   Full-screen brand splash shown while the site boots:
+   the APL logo sits at the centre of a revolving circular
+   spinner, then the whole overlay fades away after 3s.
+   Brand palette: APL blue / gold.
+   ============================================================ */
+
+.apl-preloader {
+    position: fixed;
+    inset: 0;
+    /* Above the navbar (z-40) and the app modals (z-50). */
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 38%, #0b2a4a 0%, #030f1e 72%);
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+
+.apl-preloader--leaving {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.apl-preloader-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+}
+
+/* Square stage that centres the logo inside the revolving rings. */
+.apl-preloader-spinner {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 168px;
+    height: 168px;
+}
+
+/* Static gold track behind the animated arc. */
+.apl-preloader-track {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 3px solid rgba(245, 184, 0, 0.18);
+}
+
+/* Outer revolving blue arc. */
+.apl-preloader-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #0072CE;
+    border-right-color: #0072CE;
+    animation: apl-preloader-spin 0.9s linear infinite;
+}
+
+/* Inner counter-rotating gold arc for depth. */
+.apl-preloader-ring::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-bottom-color: #f5b800;
+    animation: apl-preloader-spin 1.4s linear infinite reverse;
+}
+
+.apl-preloader-logo {
+    position: relative;
+    width: 98px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 18px rgba(0, 114, 206, 0.45));
+    animation: apl-preloader-pulse 1.8s ease-in-out infinite;
+}
+
+.apl-preloader-text {
+    margin: 0;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(245, 184, 0, 0.85);
+}
+
+@keyframes apl-preloader-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes apl-preloader-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .apl-preloader-ring,
+    .apl-preloader-ring::after,
+    .apl-preloader-logo {
+        animation: none;
+    }
+}

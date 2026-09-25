@@ -1,0 +1,754 @@
+/* ============================================================
+   APL NAVBAR
+   Aba Power / APL Electric Company navigation:
+   - transparent at top of page, solid white bar once scrolled
+   - desktop links fade in on scroll with animated gold underline
+   - hover/focus dropdown flyouts with sliding indent
+   - pill CTA button
+   - slide-down mobile menu with +/- accordions
+   Brand palette: APL blue / gold.
+   ============================================================ */
+
+:root {
+    --gpnav-hover: #0072CE;
+    --gpnav-underline: #F5B800;
+    --gpnav-ink: #111827;
+    --gpnav-ink-soft: #4b5563;
+    --gpnav-line: #e5e7eb;
+    --gpnav-line-soft: #f1f5f9;
+    --gpnav-cta: #0072CE;
+    --gpnav-cta-hover: #005fb3;
+}
+
+/* Keep section anchors clear of the fixed header */
+section[id] {
+    scroll-margin-top: 96px;
+}
+
+.gpnav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* Below the app modals (z-50) so dialogs overlay the bar */
+    z-index: 40;
+    width: 100%;
+    background: transparent;
+    transition: background 0.28s ease, box-shadow 0.28s ease,
+        border-color 0.28s ease;
+}
+
+.gpnav.gpnav-scrolled {
+    background: #ffffff;
+    border-bottom: 1px solid var(--gpnav-line);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.1);
+}
+
+.gpnav-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.gpnav-inner {
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: height 0.28s ease;
+}
+
+.gpnav.gpnav-scrolled .gpnav-inner {
+    height: 76px;
+}
+
+/* ---------------- Logo ---------------- */
+.gpnav-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+    text-decoration: none;
+}
+
+/* Full APL lockup (emblem + wordmark) on a transparent background. Sized by
+   height so the entire logo stays visible against the transparent header. */
+.gpnav-logo-img {
+    display: block;
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.25s ease;
+    filter: drop-shadow(0 3px 9px rgba(0, 114, 206, 0.3));
+}
+
+.gpnav-logo:hover .gpnav-logo-img {
+    transform: scale(1.04);
+}
+
+/* ---------------- Desktop nav ---------------- */
+.gpnav-desktop {
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 28px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+}
+
+.gpnav.gpnav-scrolled .gpnav-desktop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+@media (min-width: 1024px) {
+    .gpnav-desktop {
+        display: flex;
+    }
+}
+
+.gpnav-link {
+    position: relative;
+    height: 76px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--gpnav-ink);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    transition: color 0.2s ease;
+}
+
+.gpnav-link:hover {
+    color: var(--gpnav-hover);
+}
+
+.gpnav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    width: 0;
+    height: 2px;
+    background: var(--gpnav-underline);
+    transition: width 0.22s ease;
+}
+
+.gpnav-link:hover::after {
+    width: 100%;
+}
+
+.gpnav-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.gpnav-chevron {
+    height: 14px;
+    width: 14px;
+    transition: transform 0.2s ease;
+}
+
+.gpnav-item:hover .gpnav-chevron,
+.gpnav-item:focus-within .gpnav-chevron {
+    transform: rotate(180deg);
+}
+
+/* ---------------- Dropdown flyout ----------------
+   Classic white WordPress-style submenu: brand-blue accent bar across the
+   top, rounded bottom corners, blue link text and a light-blue hover fill. */
+.gpnav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 30;
+    min-width: 260px;
+    display: none;
+    padding: 6px 0;
+    background: #ffffff;
+    border: 1px solid var(--gpnav-line);
+    border-top: 3px solid var(--gpnav-hover);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 28px 70px rgba(15, 23, 42, 0.18);
+    overflow: hidden;
+}
+
+.gpnav-item:hover>.gpnav-dropdown,
+.gpnav-item:focus-within>.gpnav-dropdown {
+    display: block;
+}
+
+/* A dropdown that owns a nested flyout must not clip it. */
+.gpnav-dropdown.gpnav-dropdown-nested {
+    overflow: visible;
+}
+
+/* Wide two-column dropdown (Customer Service): pairs the sub-menu entries so
+   the list reads side by side as four pairs instead of one long column.
+   Anchored right so a wide panel never runs off the viewport. */
+.gpnav-dropdown-wide {
+    left: auto;
+    right: 0;
+    min-width: min(680px, calc(100vw - 32px));
+    padding: 10px;
+    display: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    overflow: visible;
+}
+
+.gpnav-item:hover>.gpnav-dropdown-wide,
+.gpnav-item:focus-within>.gpnav-dropdown-wide {
+    display: grid;
+}
+
+.gpnav-dropdown-wide a {
+    padding: 12px 16px;
+    border-bottom: 0;
+    border-radius: 10px;
+}
+
+.gpnav-dropdown-wide a:last-child {
+    border-bottom: 0;
+}
+
+.gpnav-dropdown a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--gpnav-hover);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+    text-decoration: none;
+    background: #ffffff;
+    border-bottom: 1px solid var(--gpnav-line-soft);
+    transition: background 0.18s ease, color 0.18s ease;
+}
+
+.gpnav-dropdown a:last-child {
+    border-bottom: 0;
+}
+
+.gpnav-dropdown a:hover,
+.gpnav-dropdown a:focus-visible {
+    background: #e8f3fc;
+    color: var(--gpnav-hover);
+    outline: none;
+}
+
+/* ---------------- Nested submenu ----------------
+   Second-level flyout (e.g. Our Operations -> Metering). Opens to the right
+   of the parent dropdown with the same white card + brand-blue accent. */
+.gpnav-subitem {
+    position: relative;
+}
+
+.gpnav-subitem-trigger {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.gpnav-subchevron {
+    height: 14px;
+    width: 14px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.gpnav-subitem:hover .gpnav-subchevron,
+.gpnav-subitem:focus-within .gpnav-subchevron {
+    transform: rotate(-90deg);
+}
+
+.gpnav-submenu {
+    position: absolute;
+    top: -6px;
+    left: 100%;
+    z-index: 31;
+    min-width: 310px;
+    display: none;
+    padding: 6px 0;
+    background: #ffffff;
+    border: 1px solid var(--gpnav-line);
+    border-top: 3px solid var(--gpnav-hover);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 28px 70px rgba(15, 23, 42, 0.18);
+    overflow: hidden;
+}
+
+.gpnav-subitem:hover>.gpnav-submenu,
+.gpnav-subitem:focus-within>.gpnav-submenu {
+    display: block;
+}
+
+.gpnav-dropdown .gpnav-submenu a {
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--gpnav-line-soft);
+}
+
+.gpnav-submenu-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.gpnav-submenu-note {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--gpnav-ink-soft);
+}
+
+.gpnav-dropdown .gpnav-submenu a:hover .gpnav-submenu-note {
+    color: var(--gpnav-hover);
+}
+
+/* ---------------- Pill CTA ---------------- */
+.gpnav-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    border-radius: 999px;
+    background: var(--gpnav-cta);
+    padding: 0 22px;
+    color: #ffffff;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 0;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gpnav-cta:hover {
+    background: var(--gpnav-cta-hover);
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(0, 114, 206, 0.35);
+}
+
+/* ---------------- Site search ---------------- */
+.gpnav-search {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gpnav-search.is-open {
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.gpnav-search-input {
+    width: 0;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    background: transparent;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    outline: none;
+    transition: width 0.28s ease, opacity 0.2s ease, padding 0.28s ease;
+}
+
+.gpnav-search.is-open .gpnav-search-input {
+    width: 190px;
+    padding-right: 14px;
+    opacity: 1;
+}
+
+.gpnav-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 500;
+}
+
+/* Keep the search affordance visible once the bar turns light on scroll. */
+.gpnav.gpnav-scrolled .gpnav-search.is-open {
+    background: rgba(7, 27, 18, 0.07);
+    box-shadow: inset 0 0 0 1px rgba(7, 27, 18, 0.12);
+}
+
+.gpnav.gpnav-scrolled .gpnav-search-input {
+    color: #0b2a4a;
+}
+
+.gpnav.gpnav-scrolled .gpnav-search-input::placeholder {
+    color: rgba(11, 42, 74, 0.45);
+}
+
+@media (max-width: 1023px) {
+    .gpnav-search.is-open .gpnav-search-input {
+        width: 130px;
+    }
+}
+
+/* ---------------- Right action cluster ---------------- */
+.gpnav-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.gpnav-pay {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    border-radius: 999px;
+    border: 0;
+    cursor: pointer;
+    padding: 0 22px;
+    background: linear-gradient(135deg, #f5b800 0%, #d9a300 100%);
+    color: #030f1e;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(245, 184, 0, 0.35);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.gpnav-pay:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(245, 184, 0, 0.55);
+}
+
+.gpnav-support {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    width: 44px;
+    border-radius: 999px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+    color: #f5b800;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+@media (min-width: 1024px) {
+    .gpnav-support {
+        display: inline-flex;
+    }
+}
+
+.gpnav.gpnav-scrolled .gpnav-support {
+    border-color: rgba(7, 27, 18, 0.18);
+    background: #f8fafc;
+    color: #0072ce;
+}
+
+.gpnav-support:hover {
+    background: rgba(245, 184, 0, 0.18);
+    border-color: #f5b800;
+}
+
+@media (max-width: 639px) {
+    .gpnav-pay {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .gpnav-pay {
+        padding: 0 16px;
+    }
+}
+
+/* ---------------- Mobile hamburger ---------------- */
+.gpnav-mobile-btn {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    height: 46px;
+    width: 46px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.gpnav.gpnav-scrolled .gpnav-mobile-btn {
+    color: #071b12;
+    border-color: rgba(7, 27, 18, 0.18);
+    background: #ffffff;
+}
+
+.gpnav-mobile-icon {
+    height: 24px;
+    width: 24px;
+}
+
+@media (min-width: 1024px) {
+    .gpnav-mobile-btn {
+        display: none;
+    }
+}
+
+/* ---------------- Mobile slide-down menu ---------------- */
+.gpnav-mobile-menu {
+    display: none;
+    background: #ffffff;
+    border-top: 1px solid var(--gpnav-line);
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+    max-height: calc(100vh - 78px);
+    overflow-y: auto;
+}
+
+.gpnav-mobile-menu.is-open {
+    display: block;
+}
+
+.gpnav-mobile-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 18px 24px 26px;
+}
+
+.gpnav-mobile-link {
+    display: block;
+    padding: 15px 0;
+    color: var(--gpnav-ink);
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    border-bottom: 1px solid var(--gpnav-line);
+    background: none;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.gpnav-mobile-link:hover {
+    color: var(--gpnav-hover);
+}
+
+.gpnav-mobile-details {
+    border-bottom: 1px solid var(--gpnav-line);
+    padding: 15px 0;
+}
+
+.gpnav-mobile-details summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--gpnav-ink);
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    list-style: none;
+}
+
+.gpnav-mobile-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.gpnav-mobile-details summary::after {
+    content: '+';
+    color: var(--gpnav-hover);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.gpnav-mobile-details[open] summary::after {
+    content: '\2212';
+    /* minus sign */
+}
+
+.gpnav-mobile-details>div {
+    display: grid;
+    gap: 10px;
+    margin-top: 14px;
+    padding-left: 14px;
+}
+
+.gpnav-mobile-details a {
+    display: block;
+    color: var(--gpnav-ink-soft);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.gpnav-mobile-details a:hover {
+    color: var(--gpnav-hover);
+}
+
+/* Third-level accordion inside the mobile menu (e.g. Metering topics). */
+.gpnav-mobile-subdetails {
+    border: 0;
+    padding: 0;
+}
+
+.gpnav-mobile-subdetails summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--gpnav-hover);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+}
+
+.gpnav-mobile-subdetails summary::-webkit-details-marker {
+    display: none;
+}
+
+.gpnav-mobile-subdetails summary::after {
+    content: '+';
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.gpnav-mobile-subdetails[open] summary::after {
+    content: '\2212';
+    /* minus sign */
+}
+
+.gpnav-mobile-subdetails>div {
+    display: grid;
+    gap: 10px;
+    margin-top: 10px;
+    padding-left: 12px;
+}
+
+.gpnav-mobile-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    border-radius: 999px;
+    background: var(--gpnav-cta);
+    padding: 15px 20px;
+    color: #ffffff;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.gpnav-mobile-cta:hover {
+    background: var(--gpnav-cta-hover);
+    color: #ffffff;
+}
+
+.gpnav-mobile-pay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #f5b800 0%, #d9a300 100%);
+    padding: 15px 20px;
+    color: #030f1e;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.gpnav-hidden {
+    display: none !important;
+}
+
+/* ---------------- Responsive sizing ---------------- */
+@media (max-width: 1023px) {
+    .gpnav-actions {
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .gpnav-inner {
+        height: 78px;
+    }
+
+    .gpnav.gpnav-scrolled .gpnav-inner {
+        height: 72px;
+    }
+
+    .gpnav-logo-title {
+        font-size: 15px;
+    }
+
+    .gpnav-logo-sub {
+        font-size: 9px;
+        letter-spacing: 0.12em;
+    }
+
+    .gpnav-logo-img {
+        height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .gpnav-wrap,
+    .gpnav-mobile-wrap {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .gpnav-logo-title {
+        font-size: 14px;
+    }
+
+    .gpnav-logo-img {
+        height: 40px;
+    }
+
+    .gpnav-mobile-btn {
+        height: 42px;
+        width: 42px;
+    }
+}

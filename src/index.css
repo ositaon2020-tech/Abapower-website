@@ -1,0 +1,1108 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --color-bg-dark: #030f1e;
+  --color-bg-card: rgba(7, 30, 61, 0.7);
+  --color-apl-blue: #0072CE;
+  --color-apl-gold: #F5B800;
+  --color-apl-cyan: #38BDF8;
+  --color-text-main: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(56, 189, 248, 0.25);
+  --glass-border-glow: rgba(245, 184, 0, 0.4);
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-body);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-main);
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(0, 114, 206, 0.3) 0%, transparent 45%),
+    radial-gradient(circle at 85% 65%, rgba(245, 184, 0, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+    #030f1e;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030f1e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 114, 206, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 184, 0, 0.8);
+}
+
+/* Grid Overlay Grid Mesh for APL Electric Theme */
+.blue-grid-overlay {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.apl-blue-gradient-mask {
+  background: linear-gradient(110deg,
+      rgba(3, 15, 30, 0.95) 0%,
+      rgba(7, 30, 61, 0.85) 40%,
+      rgba(11, 40, 78, 0.7) 70%,
+      rgba(3, 15, 30, 0.45) 100%);
+}
+
+/* Glassmorphic Components */
+.glass-panel {
+  background: rgba(7, 30, 61, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel:hover {
+  border-color: rgba(245, 184, 0, 0.45);
+  box-shadow: 0 12px 35px rgba(0, 114, 206, 0.2);
+}
+
+.glass-card-hero {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 16px 20px;
+  min-width: 220px;
+}
+
+/* Buttons */
+.btn-primary-white {
+  background: #ffffff;
+  color: #030f1e;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  padding: 14px 28px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25);
+  transition: all 0.25s ease;
+}
+
+.btn-primary-white:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(245, 184, 0, 0.4);
+  background: #ffffff;
+  color: #0072CE;
+}
+
+.btn-outline-glass-apl {
+  background: rgba(0, 114, 206, 0.15);
+  color: #ffffff;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  padding: 14px 28px;
+  border-radius: 9999px;
+  border: 1px solid rgba(245, 184, 0, 0.5);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.btn-outline-glass-apl:hover {
+  background: rgba(245, 184, 0, 0.2);
+  border-color: #F5B800;
+  color: #F5B800;
+  transform: translateY(-2px);
+}
+
+.btn-apl-blue {
+  background: linear-gradient(135deg, #0072CE 0%, #005fb3 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  box-shadow: 0 4px 15px rgba(0, 114, 206, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-apl-blue:hover {
+  box-shadow: 0 6px 22px rgba(245, 184, 0, 0.45);
+  background: linear-gradient(135deg, #0080FF 0%, #0072CE 100%);
+  transform: translateY(-2px);
+}
+
+.btn-apl-gold {
+  background: linear-gradient(135deg, #F5B800 0%, #d9a300 100%);
+  color: #030f1e;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  box-shadow: 0 4px 15px rgba(245, 184, 0, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-apl-gold:hover {
+  box-shadow: 0 6px 22px rgba(245, 184, 0, 0.55);
+  transform: translateY(-2px);
+}
+
+/* Marquee Animation */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: 200%;
+  animation: marqueeScroll 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Pulsing Dots */
+.pulse-gold {
+  width: 10px;
+  height: 10px;
+  background-color: #F5B800;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(245, 184, 0, 0.7);
+  animation: pulseGold 2s infinite;
+}
+
+.pulse-blue {
+  width: 10px;
+  height: 10px;
+  background-color: #38BDF8;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+  animation: pulseBlue 1.8s infinite;
+}
+
+@keyframes pulseGold {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(245, 184, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(245, 184, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(245, 184, 0, 0);
+  }
+}
+
+@keyframes pulseBlue {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(56, 189, 248, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+  }
+}
+
+/* Animated gradient bar — used on the "Our Commitment" card accent */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-animate {
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease-in-out infinite;
+}
+
+/* Badge pill */
+.badge-pill-gold {
+  background: rgba(245, 184, 0, 0.15);
+  border: 1px solid rgba(245, 184, 0, 0.4);
+  color: #F5B800;
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(8px);
+}
+
+.badge-pill-blue {
+  background: rgba(0, 114, 206, 0.15);
+  border: 1px solid rgba(0, 114, 206, 0.4);
+  color: #38BDF8;
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Custom Typography */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #ffffff 20%, #F5B800 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #ffffff 20%, #38BDF8 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heading-font {
+  font-family: var(--font-heading);
+}
+
+/* Hero Stat Cards (Aba Power blue theme) */
+.hero-stat-card {
+  background: rgba(7, 30, 61, 0.55);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 16px;
+  padding: 20px 22px;
+  min-height: 132px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.hero-stat-card:hover {
+  background: rgba(7, 30, 61, 0.7);
+  border-color: rgba(245, 184, 0, 0.6);
+  transform: translateY(-4px);
+}
+
+/* ==========================================================================
+   Hero entrance animations + subtle background motion
+   ========================================================================== */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroKenBurns {
+  0% {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: scale(1.18) translate3d(-1.5%, -1.5%, 0);
+  }
+}
+
+@keyframes pingSlow {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+
+  70%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.hero-anim {
+  opacity: 0;
+  animation: heroFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-anim-1 {
+  animation-delay: 0.15s;
+}
+
+.hero-anim-2 {
+  animation-delay: 0.3s;
+}
+
+.hero-anim-3 {
+  animation-delay: 0.45s;
+}
+
+/* Slow, cinematic drift on the hero background photo */
+.hero-bg-img {
+  animation: heroKenBurns 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Corporate motion-graphics video backdrop layered over the hero photo.
+   The image beneath acts as both first paint and graceful fallback.
+   No z-index: it sits in DOM order below the brand gradient overlays. */
+.hero-bg-video {
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Slower pulse for the badge status dot */
+.animate-ping-slow {
+  animation: pingSlow 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim {
+    opacity: 1;
+    animation: none;
+  }
+
+  .hero-bg-img,
+  .animate-ping-slow,
+  .gradient-animate,
+  .apl-float,
+  .apl-shimmer,
+  .apl-to-top svg,
+  .btn-apl-blue:hover::after,
+  .btn-apl-gold:hover::after,
+  .btn-outline-glass-apl:hover::after {
+    animation: none;
+  }
+
+  /* Freeze the motion-graphics backdrop for reduced-motion users */
+  .hero-bg-video {
+    display: none;
+  }
+
+  /* Everything reveals instantly; no translate/scale/opacity transitions. */
+  [data-reveal],
+  [data-reveal-stagger]>* {
+    opacity: 1 !important;
+    translate: none !important;
+    scale: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+
+  .apl-scroll-progress,
+  .apl-to-top {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   NewsRoom Section — auto-sliding news carousel
+   ========================================================================== */
+.newsroom-viewport {
+  overflow: hidden;
+  padding: 4px 0;
+}
+
+.newsroom-track {
+  display: flex;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.newsroom-slide {
+  flex: 0 0 auto;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.newsroom-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #071e3d;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.newsroom-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(245, 184, 0, 0.5);
+  box-shadow: 0 16px 40px rgba(0, 114, 206, 0.28);
+}
+
+.newsroom-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.newsroom-card:hover .newsroom-card-img {
+  transform: scale(1.06);
+}
+
+.newsroom-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+      rgba(3, 15, 30, 0.55) 0%,
+      rgba(3, 15, 30, 0.25) 40%,
+      rgba(3, 15, 30, 0.85) 100%);
+}
+
+.newsroom-card-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 28px;
+  gap: 12px;
+}
+
+.newsroom-card-tag {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #F5B800;
+  background: rgba(3, 15, 30, 0.55);
+  border: 1px solid rgba(245, 184, 0, 0.4);
+  border-radius: 9999px;
+  padding: 5px 12px;
+  backdrop-filter: blur(6px);
+}
+
+.newsroom-card-title {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.newsroom-card-meta {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.newsroom-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: #F5B800;
+  display: inline-block;
+}
+
+/* Progress dots */
+.newsroom-dot-btn {
+  width: 26px;
+  height: 4px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.newsroom-dot-btn.is-active {
+  background: #F5B800;
+  width: 40px;
+}
+
+/* Circular prev/next controls (matches reference design) */
+.newsroom-arrow-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.newsroom-arrow-btn:hover {
+  background: #F5B800;
+  border-color: #F5B800;
+  color: #030f1e;
+  transform: translateY(-2px);
+}
+
+.newsroom-arrow-prev svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 640px) {
+  .newsroom-card {
+    aspect-ratio: 4 / 5;
+  }
+
+  .newsroom-card-title {
+    font-size: 22px;
+  }
+}
+
+/* ==========================================================================
+   Light "shade" theme — applied to every section after the Stats band
+   ========================================================================== */
+.section-shade {
+  background: linear-gradient(135deg, #eef5fc 0%, #e2eefb 50%, #d3e6fa 100%);
+}
+
+/* ==========================================================================
+   Health & Safety — anchored topic cards
+   Inner cards carry ids for the navbar sub-menu, so they need the same
+   scroll offset as full sections plus a brief highlight when targeted.
+   ========================================================================== */
+.safety-topic {
+  scroll-margin-top: 96px;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.safety-topic:target {
+  box-shadow: 0 0 0 3px #F5B800, 0 18px 45px rgba(0, 114, 206, 0.25);
+  transform: translateY(-2px);
+}
+
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 114, 206, 0.16);
+  box-shadow: 0 10px 30px rgba(3, 15, 30, 0.08);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-light:hover {
+  border-color: rgba(245, 184, 0, 0.6);
+  box-shadow: 0 12px 35px rgba(0, 114, 206, 0.15);
+}
+
+/* NewsRoom controls need a dark treatment when sitting on the light shade */
+.newsroom-section .newsroom-dot-btn {
+  background: rgba(3, 15, 30, 0.15);
+}
+
+.newsroom-section .newsroom-dot-btn.is-active {
+  background: #0072CE;
+}
+
+.newsroom-section .newsroom-arrow-btn {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 114, 206, 0.3);
+  color: #0072CE;
+}
+
+.newsroom-section .newsroom-arrow-btn:hover {
+  background: #0072CE;
+  border-color: #0072CE;
+  color: #ffffff;
+}
+
+/* Light-section badge variants (readable gold / blue on the shade background) */
+.badge-pill-gold-light {
+  background: rgba(245, 184, 0, 0.18);
+  border: 1px solid rgba(176, 125, 0, 0.4);
+  color: #9a6f00;
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   Interaction layer — scroll reveals, hover micro-interactions and the
+   floating scroll affordances. Everything here is opt-in via a class or a
+   `data-reveal` attribute, and is neutralised under prefers-reduced-motion.
+   ========================================================================== */
+
+/* --- Scroll reveal -------------------------------------------------------
+   Elements start slightly offset + transparent, then settle into place when
+   `useReveal` adds `.is-visible`. Variants pick the direction of travel and
+   `--reveal-delay` staggers grids of cards.
+
+   These rules intentionally animate the standalone `translate`/`scale`
+   properties rather than `transform`, so hover utilities such as
+   `hover:-translate-y-1` (which set `transform`) keep working on the same
+   element instead of fighting the reveal. */
+[data-reveal] {
+  opacity: 0;
+  translate: 0 30px;
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    scale 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: opacity, translate, scale;
+}
+
+[data-reveal='left'] {
+  translate: -34px 0;
+}
+
+[data-reveal='right'] {
+  translate: 34px 0;
+}
+
+[data-reveal='zoom'] {
+  translate: 0 0;
+  scale: 0.92;
+}
+
+[data-reveal='blur'] {
+  translate: 0 26px;
+  filter: blur(6px);
+  transition: opacity 0.75s ease, translate 0.75s ease, filter 0.75s ease;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+  filter: none;
+}
+
+/* Group reveal: the container stays put, its direct children rise in
+   sequence. Handy for card grids (bento tiles, quick actions, news tiles). */
+[data-reveal-stagger]>* {
+  opacity: 0;
+  translate: 0 26px;
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal-stagger].is-visible>* {
+  opacity: 1;
+  translate: 0 0;
+}
+
+[data-reveal-stagger].is-visible>*:nth-child(1) {
+  transition-delay: 0.04s;
+}
+
+[data-reveal-stagger].is-visible>*:nth-child(2) {
+  transition-delay: 0.13s;
+}
+
+[data-reveal-stagger].is-visible>*:nth-child(3) {
+  transition-delay: 0.22s;
+}
+
+[data-reveal-stagger].is-visible>*:nth-child(4) {
+  transition-delay: 0.31s;
+}
+
+[data-reveal-stagger].is-visible>*:nth-child(5) {
+  transition-delay: 0.4s;
+}
+
+[data-reveal-stagger].is-visible>*:nth-child(6) {
+  transition-delay: 0.49s;
+}
+
+/* --- Underline sweep on inline links ------------------------------------- */
+.apl-link-sweep {
+  position: relative;
+}
+
+.apl-link-sweep::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 2px;
+  width: 100%;
+  border-radius: 9999px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.apl-link-sweep:hover::after,
+.apl-link-sweep:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* --- Ambient float (slow bob for badges / floating cards) ----------------- */
+@keyframes aplFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.apl-float {
+  animation: aplFloat 4.5s ease-in-out infinite;
+}
+
+.apl-float-slow {
+  animation: aplFloat 6.5s ease-in-out infinite;
+}
+
+/* --- Sheen sweep across primary buttons on hover ------------------------- */
+@keyframes aplShimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* The sheen lives on a ::after overlay so it sweeps *over* the button's own
+   solid/gradient background instead of replacing it (which previously wiped
+   out the blue and gold fills, leaving white-on-white text). */
+.btn-primary-white,
+.btn-apl-blue,
+.btn-apl-gold,
+.btn-outline-glass-apl {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary-white::after,
+.btn-apl-blue::after,
+.btn-apl-gold::after,
+.btn-outline-glass-apl::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(115deg,
+      transparent 42%,
+      rgba(255, 255, 255, 0.5) 50%,
+      transparent 58%);
+  background-size: 220% 100%;
+  background-position: 200% 0;
+}
+
+.btn-apl-blue:hover::after,
+.btn-apl-gold:hover::after,
+.btn-outline-glass-apl:hover::after {
+  animation: aplShimmer 0.9s ease;
+}
+
+/* --- Scroll progress bar + back-to-top ----------------------------------- */
+.apl-scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 90;
+  pointer-events: none;
+}
+
+.apl-scroll-progress>span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, #0072CE 0%, #38BDF8 45%, #F5B800 100%);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.55);
+  transition: transform 0.12s linear;
+}
+
+.apl-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 90;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(245, 184, 0, 0.5);
+  border-radius: 9999px;
+  background: rgba(3, 15, 30, 0.82);
+  color: #ffffff;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: translateY(16px) scale(0.9);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.25s ease,
+    border-color 0.25s ease, color 0.25s ease;
+}
+
+.apl-to-top.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.apl-to-top:hover {
+  background: #F5B800;
+  border-color: #F5B800;
+  color: #030f1e;
+}
+
+.apl-to-top svg {
+  transition: transform 0.25s ease;
+}
+
+.apl-to-top:hover svg {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .apl-to-top {
+    right: 14px;
+    bottom: 14px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+.badge-pill-blue-light {
+  background: rgba(0, 114, 206, 0.12);
+  border: 1px solid rgba(0, 114, 206, 0.35);
+  color: #005e9e;
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   Floating WhatsApp support button
+   Bottom-left sticky chat affordance (the back-to-top control owns the
+   bottom-right corner, so the two never collide).
+   ========================================================================== */
+.apl-whatsapp {
+  position: fixed;
+  left: 22px;
+  bottom: 22px;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  height: 56px;
+  padding: 0;
+  border-radius: 9999px;
+  background: #25d366;
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.45);
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.apl-whatsapp:hover {
+  background: #1ebe5b;
+  box-shadow: 0 16px 38px rgba(37, 211, 102, 0.55);
+  transform: translateY(-2px);
+}
+
+.apl-whatsapp:focus-visible {
+  outline: 3px solid rgba(37, 211, 102, 0.5);
+  outline-offset: 3px;
+}
+
+/* Circular glyph holder */
+.apl-whatsapp-icon {
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Expanded label — collapses to zero width until hover / focus. */
+.apl-whatsapp-label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  opacity: 0;
+  transition: max-width 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+.apl-whatsapp:hover .apl-whatsapp-label,
+.apl-whatsapp:focus-visible .apl-whatsapp-label {
+  max-width: 160px;
+  opacity: 1;
+  padding-right: 22px;
+}
+
+/* Soft pulsing halo to draw the eye without being noisy. */
+.apl-whatsapp-pulse {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  background: rgba(37, 211, 102, 0.55);
+  animation: aplWhatsAppPulse 2.4s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes aplWhatsAppPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+
+  70% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .apl-whatsapp {
+    left: 14px;
+    bottom: 14px;
+    height: 50px;
+  }
+
+  .apl-whatsapp-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .apl-whatsapp-pulse {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Keep the button compact on small screens — no expanding label. */
+  .apl-whatsapp:hover .apl-whatsapp-label,
+  .apl-whatsapp:focus-visible .apl-whatsapp-label {
+    max-width: 0;
+    opacity: 0;
+    padding-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apl-whatsapp-pulse {
+    animation: none;
+    opacity: 0;
+  }
+
+  .apl-whatsapp {
+    transition: none;
+  }
+}
