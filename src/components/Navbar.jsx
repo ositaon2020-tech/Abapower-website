@@ -115,13 +115,8 @@ const BASE_MENU = [
     ],
   },
   {
-    label: 'Metering',
-    href: `#${METERING_ROUTE_BASE}`,
-    children: METERING_SUBMENU.map((item) => ({
-      label: item.label,
-      href: item.href,
-      external: /^https?:\/\//i.test(item.href),
-    })),
+    label: 'Apply for a MAP meter',
+    href: MAP_APPLICATION_URL,
   },
 ];
 
@@ -386,18 +381,19 @@ export default function Navbar({ onOpenSupportModal, onOpenCareersModal }) {
               />
             </form>
 
-            <button
-              type="button"
+            {/* "Pay Bill" links straight to the Nkeanyi self-service portal,
+                where customers pay bills and buy tokens. */}
+            <a
+              href={NKEANYI_WEB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="gpnav-pay"
-              data-track="TID Token (pay)"
-              onClick={() => {
-                window.location.hash = `#${TID_TOKEN_ROUTE_BASE}`;
-                closeMenu();
-              }}
+              data-track="Pay Bill (pay)"
+              onClick={closeMenu}
             >
               <IconCreditCard className="w-4 h-4" />
-              <span className="gpnav-pay-label">TID Token</span>
-            </button>
+              <span className="gpnav-pay-label">Pay Bill</span>
+            </a>
 
             {/* Mobile hamburger */}
             <button
@@ -501,6 +497,17 @@ export default function Navbar({ onOpenSupportModal, onOpenCareersModal }) {
               {link.label}
             </a>
           ))}
+
+          <a
+            href={NKEANYI_WEB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gpnav-mobile-pay"
+            onClick={closeMenu}
+          >
+            <IconCreditCard className="w-4 h-4" />
+            Pay Bill
+          </a>
 
           <button
             type="button"

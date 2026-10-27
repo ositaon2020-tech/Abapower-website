@@ -205,12 +205,27 @@ body {
 
 .marquee-track {
   display: flex;
-  width: 200%;
-  animation: marqueeScroll 28s linear infinite;
+  width: max-content;
+  animation: marqueeScroll 75s linear infinite;
 }
 
 .marquee-track:hover {
   animation-play-state: paused;
+}
+
+@keyframes newsSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.news-ticker-slide {
+  animation: newsSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Pulsing Dots */

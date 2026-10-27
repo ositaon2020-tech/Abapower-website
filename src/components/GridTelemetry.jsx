@@ -128,7 +128,7 @@ export default function GridTelemetry({ onOpenSupportModal, onOpenCareersModal }
                     Nkeanyi App
                   </h4>
                   <p className="text-slate-600 text-xs font-medium leading-relaxed mb-4">
-                    Pay bills instantly, check arrears with ease, view map refunds and more
+                    Get real-time insight into your account activity, pay bills and lots more
                   </p>
                 </div>
 

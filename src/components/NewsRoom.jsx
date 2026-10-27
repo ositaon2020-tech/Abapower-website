@@ -1,7 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { IconArrowRight, IconCalendar, IconNewspaper } from './Icons';
 import { useContent } from '../context/ContentContext';
-import { MEDIA_ROUTE_BASE } from '../data/mediaContent';
+import {
+    DEFAULT_NEWS,
+    MEDIA_ROUTE_BASE,
+    newsArticlePath,
+    sortNewsByDateDesc,
+} from '../data/mediaContent';
 
 /**
  * NewsRoom
@@ -17,68 +22,8 @@ import { MEDIA_ROUTE_BASE } from '../data/mediaContent';
  * Articles come from the CMS `news` collection (published items only) and the
  * heading copy from `settings.newsroom`.
  */
-const DEFAULT_NEWS = [
-    {
-        id: 'n-1',
-        title: 'APL Electric Commissions 188MW Gas Plant',
-        category: 'Company Milestone',
-        date: 'February 2024',
-        readTime: '4 min read',
-        image:
-            'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80',
-        published: true,
-    },
-    {
-        id: 'n-2',
-        title: 'Aba Power Reaches 37,000+ Electrified Businesses',
-        category: 'Industrial Growth',
-        date: 'March 2024',
-        readTime: '3 min read',
-        image:
-            'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80',
-        published: true,
-    },
-    {
-        id: 'n-3',
-        title: '27km Owaza Gas Pipeline Delivers Reliable Fuel',
-        category: 'Infrastructure',
-        date: 'April 2024',
-        readTime: '5 min read',
-        image:
-            'https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1200&q=80',
-        published: true,
-    },
-    {
-        id: 'n-4',
-        title: 'Smart Prepaid Metering Expands Across 9 LGAs',
-        category: 'Customer Service',
-        date: 'May 2024',
-        readTime: '3 min read',
-        image:
-            'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=80',
-        published: true,
-    },
-    {
-        id: 'n-5',
-        title: 'Enyimba Economic City Secures Dedicated Power Feed',
-        category: 'Special Economic Zone',
-        date: 'June 2024',
-        readTime: '4 min read',
-        image:
-            'https://images.unsplash.com/photo-1590959651373-a3db0f38a961?auto=format&fit=crop&w=1200&q=80',
-        published: true,
-    },
-    {
-        id: 'n-6',
-        title: 'APL Electric Partners on Quad Power Expansion (+375MW)',
-        category: 'Future Energy',
-        date: 'July 2024',
-        readTime: '4 min read',
-        image:
-            'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80',
-        published: true,
-    },
-];
+// Fallback stories live in `data/mediaContent.js` (DEFAULT_NEWS) so the
+// newsroom grid and the single-article page share one source of truth.
 
 const DEFAULT_SETTINGS = {
     badge: 'NEWSROOM',
@@ -90,8 +35,11 @@ const DEFAULT_SETTINGS = {
     speedMs: 4000,
 };
 
-/** Both variants are deliberately capped at six stories. */
+/** The landing-page carousel shows a fixed six-story window. */
 const MAX_CARDS = 6;
+
+/** The grid starts with six stories and reveals six more per "More" click. */
+const GRID_BATCH = 6;
 
 /**
  * Open the NEWSROOM / "Latest News from Aba Power" section on the dedicated
@@ -164,7 +112,11 @@ function NewsCarousel({ news, perView, index, onSelect, controls }) {
                             className="newsroom-slide"
                             style={{ width: `${100 / perView}%` }}
                         >
-                            <article className="newsroom-card">
+                            <a
+                                href={`#${newsArticlePath(item.id)}`}
+                                className="newsroom-card block"
+                                aria-label={`Read full story: ${item.title}`}
+                            >
                                 {item.image ? (
                                     <img
                                         src={item.image}
@@ -192,7 +144,7 @@ function NewsCarousel({ news, perView, index, onSelect, controls }) {
                                         ) : null}
                                     </div>
                                 </div>
-                            </article>
+                            </a>
                         </div>
                     ))}
                 </div>
@@ -229,7 +181,11 @@ function NewsCarousel({ news, perView, index, onSelect, controls }) {
 /** One quiet news tile: thumbnail strip, category, headline, date. */
 function NewsCard({ item }) {
     return (
-        <article className="group flex flex-col rounded-2xl border border-[#0072CE]/15 bg-white/80 p-3 transition-all duration-300 hover:-translate-y-1 hover:border-[#0072CE]/35 hover:shadow-xl hover:shadow-[#0072CE]/10">
+        <a
+            href={`#${newsArticlePath(item.id)}`}
+            aria-label={`Read full story: ${item.title}`}
+            className="group flex flex-col rounded-2xl border border-[#0072CE]/15 bg-white/80 p-3 transition-all duration-300 hover:-translate-y-1 hover:border-[#0072CE]/35 hover:shadow-xl hover:shadow-[#0072CE]/10"
+        >
             <div className="aspect-[16/10] w-full overflow-hidden rounded-xl bg-[#e2eefb]">
                 {item.image ? (
                     <img
@@ -257,7 +213,7 @@ function NewsCard({ item }) {
                     <span>{item.date}</span>
                 </div>
             </div>
-        </article>
+        </a>
     );
 }
 
@@ -271,16 +227,25 @@ export default function NewsRoom({ variant = 'carousel' }) {
 
     const perView = usePerView();
     const [index, setIndex] = useState(0);
+    // How many stories the grid variant is currently showing.
+    const [gridLimit, setGridLimit] = useState(GRID_BATCH);
 
-    // Only published articles appear on the public site, capped at six.
-    const news = useMemo(() => {
+    // Only published articles appear on the public site, newest first.
+    const allNews = useMemo(() => {
         const stored = getCollection('news').filter(
             (item) => item.published !== false,
         );
-        return (stored.length ? stored : DEFAULT_NEWS).slice(0, MAX_CARDS);
+        return sortNewsByDateDesc(stored.length ? stored : DEFAULT_NEWS);
     }, [getCollection]);
 
+    // The carousel keeps a fixed six-story window; the grid reveals the rest
+    // in batches as the reader clicks "More".
+    const news = isGrid
+        ? allNews.slice(0, gridLimit)
+        : allNews.slice(0, MAX_CARDS);
+
     const maxIndex = Math.max(0, news.length - perView);
+    const hasMoreGrid = isGrid && gridLimit < allNews.length;
 
     // Keep the active slide in range when the viewport changes.
     useEffect(() => {
@@ -326,16 +291,26 @@ export default function NewsRoom({ variant = 'carousel' }) {
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-3 self-start sm:self-auto">
-                        <button
-                            type="button"
-                            onClick={openNewsroom}
-                            className="inline-flex items-center gap-2 rounded-full border border-[#0072CE]/40 px-5 py-3 font-bold text-[#0072CE] hover:bg-[#0072CE] hover:text-white transition-colors whitespace-nowrap text-sm group"
-                        >
-                            {isGrid ? 'More' : 'View all news'}
-                            <IconArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                        </button>
-                    </div>
+                    {!isGrid || hasMoreGrid ? (
+                        <div className="flex items-center gap-3 self-start sm:self-auto">
+                            <button
+                                type="button"
+                                onClick={
+                                    isGrid
+                                        ? () =>
+                                            setGridLimit(
+                                                (current) => current + GRID_BATCH,
+                                            )
+                                        : openNewsroom
+                                }
+                                aria-expanded={isGrid ? hasMoreGrid : undefined}
+                                className="inline-flex items-center gap-2 rounded-full border border-[#0072CE]/40 px-5 py-3 font-bold text-[#0072CE] hover:bg-[#0072CE] hover:text-white transition-colors whitespace-nowrap text-sm group"
+                            >
+                                {isGrid ? 'More' : 'View all news'}
+                                <IconArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                            </button>
+                        </div>
+                    ) : null}
                 </div>
             </div>
 

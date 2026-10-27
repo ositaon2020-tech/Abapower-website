@@ -11,9 +11,7 @@ import {
   CUSTOMER_SERVICE_ROUTE_BASE,
   NEW_CONNECTION_ROUTE_BASE,
 } from '../data/customerServiceContent';
-import { METERING_ROUTE_BASE } from '../data/meteringContent';
-/* Official APL Electric Company logo (transparent PNG). */
-import aplLogo from '../assets/apl-logo.png';
+import { METERING_ROUTE_BASE, MAP_APPLICATION_URL } from '../data/meteringContent';
 
 /* The footer's "Customer Portal" entry mirrors the destination used by the
    Customer Service menu's "Customer Portal Login" item. */
@@ -41,13 +39,8 @@ export default function Footer({ onOpenPayModal, onOpenSupportModal }) {
           data-reveal-stagger
         >
           {/* Col 1: About Us */}
-          <div className="lg:col-span-4 space-y-4">
-            <img
-              src={aplLogo}
-              alt="APL Electric Company"
-              className="w-36 h-auto"
-            />
-            <h4 className="font-extrabold text-[#0b2a4a] text-sm uppercase tracking-wider heading-font">
+          <div className="lg:col-span-4">
+            <h4 className="font-extrabold text-[#0b2a4a] text-sm uppercase tracking-wider mb-4 heading-font">
               About Us
             </h4>
             <p className="text-xs text-slate-600 leading-relaxed max-w-md">
@@ -79,7 +72,7 @@ export default function Footer({ onOpenPayModal, onOpenSupportModal }) {
               Our Services
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><a href={`#${METERING_ROUTE_BASE}`} className="hover:text-[#0072CE] transition-colors">Metering</a></li>
+              <li><a href={MAP_APPLICATION_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#0072CE] transition-colors">Apply for a MAP meter</a></li>
               <li><a data-track="Footer · Customer Service" href={`#${CUSTOMER_SERVICE_ROUTE_BASE}`} className="hover:text-[#0072CE] transition-colors">Customer Service</a></li>
               {/* Careers points at the Geometric Power careers page, the same
                   destination used by the main menu. */}

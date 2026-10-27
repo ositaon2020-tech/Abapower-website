@@ -40,53 +40,42 @@
     height: 168px;
 }
 
-/* Static gold track behind the animated arc. */
+/* Static white track behind the animated arc. */
 .apl-preloader-track {
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    border: 3px solid rgba(245, 184, 0, 0.18);
+    border: 3px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Outer revolving blue arc. */
+/* Outer revolving white arc. */
 .apl-preloader-ring {
     position: absolute;
     inset: 0;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: #0072CE;
-    border-right-color: #0072CE;
+    border-top-color: #ffffff;
+    border-right-color: #ffffff;
     animation: apl-preloader-spin 0.9s linear infinite;
 }
 
-/* Inner counter-rotating gold arc for depth. */
+/* Inner counter-rotating white arc for depth. */
 .apl-preloader-ring::after {
     content: '';
     position: absolute;
     inset: 12px;
     border-radius: 50%;
     border: 2px solid transparent;
-    border-bottom-color: #f5b800;
+    border-bottom-color: rgba(255, 255, 255, 0.65);
     animation: apl-preloader-spin 1.4s linear infinite reverse;
 }
 
 .apl-preloader-logo {
     position: relative;
-    width: 98px;
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 6px 18px rgba(0, 114, 206, 0.45));
+    width: 96px;
+    height: 96px;
+    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.45));
     animation: apl-preloader-pulse 1.8s ease-in-out infinite;
-}
-
-.apl-preloader-text {
-    margin: 0;
-    font-family: var(--font-heading, 'Outfit', sans-serif);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: rgba(245, 184, 0, 0.85);
 }
 
 @keyframes apl-preloader-spin {

@@ -43,3 +43,26 @@ export function detectPlatform() {
 export function getAppStoreUrl() {
     return detectPlatform() === 'ios' ? APP_STORE_URL : PLAY_STORE_URL;
 }
+
+/** Smart-link page (in /public) that forwards scanners to the right store. */
+export const SMART_APP_PATH = 'get-app.html';
+
+/**
+ * Absolute URL of the smart-link page for the *current* site.
+ *
+ * Deriving this from the live origin (and Vite's BASE_URL) instead of
+ * hard-coding a production domain keeps the QR code working everywhere the
+ * site is served from — localhost, preview/staging URLs, a GitHub Pages
+ * sub-path and the final production domain — so a scanned code never points
+ * at a host that doesn't actually serve the redirect page.
+ */
+export function getSmartAppUrl() {
+    if (typeof window === 'undefined' || !window.location?.origin) {
+        return `/${SMART_APP_PATH}`;
+    }
+
+    // Respect a configured base (e.g. "/Abapower-website/" on GitHub Pages)
+    // while keeping the path root-relative to the current origin.
+    const base = (import.meta?.env?.BASE_URL || '/').replace(/\/+$/, '');
+    return `${window.location.origin}${base}/${SMART_APP_PATH}`;
+}

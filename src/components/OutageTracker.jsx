@@ -11,7 +11,7 @@ export default function OutageTracker() {
     smallTopLeft:
       'https://cultureintelligence.ynaija.com/wp-content/uploads/2021/07/Textile-industry.jpg',
     smallTopRight:
-      'https://images.unsplash.com/photo-1605980776566-0486c3ac7617?q=80&w=500&auto=format&fit=crop',
+      'https://images.pexels.com/photos/7709165/pexels-photo-7709165.jpeg?auto=compress&cs=tinysrgb&w=500',
     smallBottomRight:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2iCIJtRsHXNQLAp-M1i0rDFRMS1zBAa31EeapstiKyTWHY485inf5G_mI&s=10',
   };
@@ -110,7 +110,7 @@ export default function OutageTracker() {
               <div className="absolute top-[8%] right-0 w-[34%] aspect-square rounded-full overflow-hidden border-4 border-white shadow-xl bg-[#0072CE] transition-transform duration-500 hover:scale-110">
                 <img
                   src={collageImages.smallTopRight}
-                  alt="Field engineer working on a prepaid meter installation"
+                  alt="Aba Power customer-care attendant assisting a customer on the phone"
                   onError={(e) => {
                     e.target.style.display = 'none';
                   }}

@@ -18,6 +18,7 @@ import LeadershipPage from './components/LeadershipPage';
 import MeteringPage from './components/MeteringPage';
 import TidTokenPage from './components/TidTokenPage';
 import MediaEventsPage from './components/MediaEventsPage';
+import NewsArticlePage from './components/NewsArticlePage';
 import CustomerServicePage from './components/CustomerServicePage';
 import NewConnectionPage from './components/NewConnectionPage';
 import TermsPage from './components/TermsPage';
@@ -37,7 +38,7 @@ import {
   NEW_CONNECTION_ROUTE_BASE,
 } from './data/customerServiceContent';
 import { TID_TOKEN_ROUTE_BASE } from './data/tidTokenContent';
-import { MEDIA_ROUTE_BASE } from './data/mediaContent';
+import { MEDIA_ROUTE_BASE, NEWS_ROUTE_BASE } from './data/mediaContent';
 import { TERMS_ROUTE_BASE } from './data/termsContent';
 import { PRIVACY_ROUTE_BASE } from './data/privacyContent';
 
@@ -102,6 +103,7 @@ export default function App() {
   //   "#/new-connection"            -> standalone New Connection form page
   //   "#/tid-token"                 -> standalone TID Token (rollover) page
   //   "#/media"                     -> standalone Media & Events (newsroom + gallery) page
+  //   "#/news/<id>"                 -> standalone news article (full story) page
   //   "#/terms"                     -> standalone Terms & Conditions page
   //   "#/privacy"                   -> standalone Privacy Policy page
   //   anything else                 -> scrolling landing page
@@ -136,6 +138,8 @@ export default function App() {
     path === TID_TOKEN_ROUTE_BASE || path.startsWith(`${TID_TOKEN_ROUTE_BASE}/`);
   const isMediaRoute =
     path === MEDIA_ROUTE_BASE || path.startsWith(`${MEDIA_ROUTE_BASE}/`);
+  const isNewsRoute =
+    path === NEWS_ROUTE_BASE || path.startsWith(`${NEWS_ROUTE_BASE}/`);
   const isTermsRoute =
     path === TERMS_ROUTE_BASE || path.startsWith(`${TERMS_ROUTE_BASE}/`);
   const isPrivacyRoute =
@@ -159,6 +163,12 @@ export default function App() {
       ? path
         .slice(CUSTOMER_SERVICE_ROUTE_BASE.length + 1)
         .replace(/\/+$/, '') || null
+      : null;
+
+  // Optional article id, e.g. "#/news/nw-1" -> "nw-1".
+  const newsSlug =
+    isNewsRoute && path.length > NEWS_ROUTE_BASE.length
+      ? path.slice(NEWS_ROUTE_BASE.length + 1).replace(/\/+$/, '') || null
       : null;
 
   // Optional resource key, e.g. "#/admin/news" -> "news".
@@ -215,6 +225,8 @@ export default function App() {
           />
         ) : isTidTokenRoute ? (
           <TidTokenPage />
+        ) : isNewsRoute ? (
+          <NewsArticlePage slug={newsSlug} />
         ) : isMediaRoute ? (
           <MediaEventsPage />
         ) : isTermsRoute ? (

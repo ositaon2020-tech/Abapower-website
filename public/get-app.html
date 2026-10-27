@@ -137,7 +137,7 @@
         <p class="hint">
             Pay bills instantly, check arrears with ease, view map refunds and more.
         </p>
-        <a class="back" href="/">&larr; Back to abapower.com</a>
+        <a class="back" href=".">&larr; Back to abapower.com</a>
     </main>
 
     <script>
@@ -159,20 +159,63 @@
             var msg = document.getElementById('msg');
             var buttons = document.getElementById('buttons');
 
+            // Carry any iOS StoreKit campaign params (e.g. ?ct=qr) through to
+            // the App Store link so installs can be attributed.
+            if (isIOS && window.location.search && IOS.indexOf('?') === -1) {
+                IOS += window.location.search;
+            }
+
             playBtn.href = PLAY;
             iosBtn.href = IOS;
+            // Always expose the manual buttons, even while auto-redirecting, so
+            // an in-app browser that blocks the redirect still lets the visitor
+            // through with one tap.
             buttons.hidden = false;
 
-            var target = isIOS ? IOS : isAndroid ? PLAY : null;
-
-            if (target) {
-                msg.textContent = isIOS
-                    ? 'Taking you to the App Store\u2026'
-                    : 'Taking you to Google Play\u2026';
-                window.location.replace(target);
-            } else {
-                msg.textContent = 'Choose your app store below.';
+            // Keep "Back to abapower.com" working under a sub-path deployment.
+            var back = document.querySelector('.back');
+            if (back) {
+                back.href =
+                    window.location.pathname.replace(/get-app\.html$/, '') || '/';
             }
+
+            if (isAndroid) {
+                msg.textContent = 'Opening Google Play\u2026';
+
+                // Try the native Play Store via an intent:// URL first; if no
+                // app handles it (or the browser blocks it) fall back to the
+                // web listing so the visitor always lands somewhere useful.
+                var intent =
+                    'intent://details?id=com.aple.customer#Intent;scheme=market;action=android.intent.action.VIEW;package=com.android.vending;end';
+                var launchedFallback = false;
+                var timer = setTimeout(function () {
+                    launchedFallback = true;
+                    window.location.href = PLAY;
+                }, 1500);
+
+                // If the intent worked, the tab is hidden before the timer fires.
+                document.addEventListener('visibilitychange', function () {
+                    if (document.hidden && !launchedFallback) {
+                        clearTimeout(timer);
+                    }
+                });
+
+                try {
+                    window.location.href = intent;
+                } catch (err) {
+                    clearTimeout(timer);
+                    window.location.href = PLAY;
+                }
+                return;
+            }
+
+            if (isIOS) {
+                msg.textContent = 'Opening the App Store\u2026';
+                window.location.replace(IOS);
+                return;
+            }
+
+            msg.textContent = 'Choose your app store below.';
         })();
     </script>
 </body>

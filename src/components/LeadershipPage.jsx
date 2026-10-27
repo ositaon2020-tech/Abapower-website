@@ -138,19 +138,6 @@ export default function LeadershipPage() {
                             Leadership
                         </span>
                     </nav>
-
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/25 bg-white/5 text-white text-[11px] font-bold tracking-[0.18em] uppercase mb-5">
-                        <IconAplSunburst className="w-3.5 h-3.5" />
-                        <span>{LEADERSHIP_INTRO.badge}</span>
-                    </div>
-
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white heading-font tracking-tight leading-[1.1] max-w-4xl">
-                        {LEADERSHIP_INTRO.title}
-                    </h1>
-
-                    <p className="text-white/80 text-base sm:text-lg leading-relaxed mt-6 max-w-3xl">
-                        {LEADERSHIP_INTRO.subtitle}
-                    </p>
                 </div>
             </div>
 
@@ -160,11 +147,8 @@ export default function LeadershipPage() {
                     <div className="text-center max-w-3xl mx-auto mb-12" data-reveal="up">
                         <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0b2a4a] text-white text-[11px] font-bold tracking-[0.18em] uppercase mb-6">
                             <IconUsers className="w-3.5 h-3.5 text-[#F5B800]" />
-                            <span>MEET THE TEAM</span>
+                        <span>MEET OUR DYNAMIC LEADERSHIP TEAM</span>
                         </span>
-                        <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0b2a4a] heading-font tracking-tight leading-[1.12]">
-                            The people powering Aba
-                        </h2>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" data-reveal-stagger>

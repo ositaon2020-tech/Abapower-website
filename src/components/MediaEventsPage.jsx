@@ -1,13 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
     IconAplSunburst,
-    IconArrowRight,
     IconCalendar,
     IconCamera,
     IconImage,
     IconMapPin,
     IconNewspaper,
-    IconPhone,
     IconX,
 } from './Icons';
 import { useContent } from '../context/ContentContext';
@@ -68,57 +66,6 @@ function PageBanner() {
                     <span aria-hidden="true">/</span>
                     <span className="text-[#F5B800] font-semibold">Media & Events</span>
                 </nav>
-
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/25 bg-white/5 text-white text-[11px] font-bold tracking-[0.18em] uppercase mb-5">
-                    <IconAplSunburst className="w-3.5 h-3.5" />
-                    <span>{MEDIA_HERO.badge}</span>
-                </div>
-
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white heading-font tracking-tight leading-[1.1] max-w-4xl">
-                    {MEDIA_HERO.title.split(' ').slice(0, -1).join(' ')}{' '}
-                    <span className="text-[#F5B800]">{MEDIA_HERO.title.split(' ').slice(-1)}</span>
-                </h1>
-
-                <p className="text-white/80 text-base sm:text-lg leading-relaxed mt-6 max-w-3xl">
-                    {MEDIA_HERO.subtitle}
-                </p>
-
-                {/* Hero stat strip */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-10 max-w-4xl">
-                    {MEDIA_HERO.stats.map((stat) => (
-                        <div
-                            key={stat.caption}
-                            className="rounded-2xl border border-white/15 bg-white/5 px-5 py-4 backdrop-blur-md"
-                        >
-                            <div className="text-2xl sm:text-3xl font-extrabold text-[#F5B800] heading-font tracking-tight">
-                                {stat.value}
-                            </div>
-                            <span className="text-xs sm:text-sm font-medium text-white/80 block mt-1">
-                                {stat.caption}
-                            </span>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Jump actions */}
-                <div className="flex flex-wrap gap-3 mt-8">
-                    <button
-                        type="button"
-                        onClick={() => scrollToSection('newsroom')}
-                        className="inline-flex items-center gap-2 rounded-full bg-[#F5B800] px-6 py-3 text-[#0b2a4a] font-extrabold text-sm hover:bg-white transition-colors shadow-lg"
-                    >
-                        <IconNewspaper className="w-4 h-4" />
-                        <span>Read the newsroom</span>
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => scrollToSection('events-gallery')}
-                        className="inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-white font-bold text-sm hover:bg-white/10 transition-colors"
-                    >
-                        <IconCamera className="w-4 h-4" />
-                        <span>Browse the gallery</span>
-                    </button>
-                </div>
             </div>
         </div>
     );
@@ -155,17 +102,10 @@ function NewsSection() {
     return (
         <section className="py-16 sm:py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <SectionHeading
-                    icon={IconNewspaper}
-                    eyebrow={MEDIA_NEWSROOM.eyebrow}
-                    title={MEDIA_NEWSROOM.title}
-                    subtitle={MEDIA_NEWSROOM.subtitle}
-                />
-            </div>
-
-            {/* Grid variant: heading and the six-card grid all live here. */}
-            <div className="mt-12" data-reveal="up">
-                <NewsRoom variant="grid" />
+                {/* Grid variant: heading and the six-card grid all live here. */}
+                <div className="mt-12" data-reveal="up">
+                    <NewsRoom variant="grid" />
+                </div>
             </div>
         </section>
     );
@@ -376,68 +316,12 @@ function EventsGallery() {
     );
 }
 
-/** Closing call to action: media enquiries. */
-function MediaContactCta() {
-    const { getSettings } = useContent();
-    const branding = getSettings('branding');
-
-    const phone = branding.phone || '0700-APL-POWER';
-    const email = branding.email || 'info@abapower.com';
-
-    return (
-        <section className="py-16 sm:py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0072CE] via-[#0066b8] to-[#00518f] px-8 py-12 sm:px-12 sm:py-14 shadow-2xl" data-reveal="zoom">
-                    <div className="absolute -top-16 -right-16 w-64 h-64 bg-[#F5B800]/20 rounded-full filter blur-3xl pointer-events-none"></div>
-                    <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-                        <div className="lg:col-span-2">
-                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white heading-font tracking-tight leading-tight mb-3">
-                                Media & press enquiries
-                            </h2>
-                            <p className="text-white/85 text-sm sm:text-base leading-relaxed max-w-2xl">
-                                Journalists, partners and event organisers can reach the Aba
-                                Power communications team for interviews, imagery, press
-                                statements and event collaborations.
-                            </p>
-                        </div>
-
-                        <div className="space-y-3">
-                            <a
-                                href={`tel:${phone}`}
-                                className="flex items-center gap-3 text-white hover:text-[#F5B800] transition-colors"
-                            >
-                                <IconPhone className="w-5 h-5 text-[#F5B800] flex-shrink-0" />
-                                <span className="text-sm font-bold">{phone}</span>
-                            </a>
-                            <a
-                                href={`mailto:${email}`}
-                                className="flex items-center gap-3 text-white hover:text-[#F5B800] transition-colors"
-                            >
-                                <IconNewspaper className="w-5 h-5 text-[#F5B800] flex-shrink-0" />
-                                <span className="text-sm font-bold">{email}</span>
-                            </a>
-                            <a
-                                href="#customer-service"
-                                className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#F5B800] px-6 py-3 text-[#0b2a4a] font-extrabold text-sm hover:bg-white hover:text-[#0072CE] transition-colors shadow-lg"
-                            >
-                                <span>Contact our team</span>
-                                <IconArrowRight className="w-4 h-4" />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-}
-
 export default function MediaEventsPage() {
     return (
         <div id="media" className="bg-gradient-to-br from-[#eef5fc] via-[#e2eefb] to-[#d3e6fa]">
             <PageBanner />
-            <NewsSection />
             <EventsGallery />
-            <MediaContactCta />
+            <NewsSection />
         </div>
     );
 }

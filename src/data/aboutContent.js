@@ -50,25 +50,19 @@ export const ABOUT_INTRO = {
     ],
 };
 
-/** Mission, Vision and Values cards. */
+/** Mission and Vision cards. */
 export const ABOUT_PILLARS = [
     {
         key: 'mission',
         label: 'Our Mission',
         iconKey: 'zap',
-        body: 'To deliver safe, reliable and affordable electricity that powers enterprise, improves quality of life and drives industrial growth across the Aba ring-fenced area.',
+        body: 'To provide affordable and reliable electricity supply while supporting socio economic development.',
     },
     {
         key: 'vision',
         label: 'Our Vision',
         iconKey: 'activity',
-        body: 'To be the most reliable and customer-centric power distribution company in Nigeria — a benchmark for private-sector utility excellence.',
-    },
-    {
-        key: 'values',
-        label: 'Our Values',
-        iconKey: 'shield',
-        body: 'Safety first, integrity, customer focus and innovation. We act responsibly toward our people, our customers and the communities we serve.',
+        body: 'To be the premier power distribution network operator in Nigeria.',
     },
 ];
 
@@ -213,7 +207,7 @@ export const LEADERSHIP_INTRO = {
     badge: 'LEADERSHIP',
     title: 'Leadership',
     subtitle:
-        'Guided by seasoned industry expertise, Aba Power’s executive leadership is focused on building a resilient, world-class energy network for our city. Meet The Team',
+        'Guided by seasoned industry expertise, Aba Power’s executive leadership is focused on building a resilient, world-class energy network for our city. Meet our dynamic leadership team',
 };
 
 export const LEADERSHIP_MEMBERS = [

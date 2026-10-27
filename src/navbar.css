@@ -73,18 +73,29 @@ section[id] {
 }
 
 /* Full APL lockup (emblem + wordmark) on a transparent background. Sized by
-   height so the entire logo stays visible against the transparent header. */
+   height so the entire logo stays visible against the transparent header.
+   The wordmark is dark navy, so on the dark banner a light halo behind it is
+   what actually makes it legible — a plain shadow would merge into the
+   background. */
 .gpnav-logo-img {
     display: block;
-    height: 50px;
+    height: 58px;
     width: auto;
     object-fit: contain;
-    transition: transform 0.25s ease;
-    filter: drop-shadow(0 3px 9px rgba(0, 114, 206, 0.3));
+    transition: transform 0.25s ease, filter 0.25s ease;
+    filter:
+        drop-shadow(0 0 6px rgba(255, 255, 255, 0.55)) drop-shadow(0 2px 6px rgba(2, 12, 27, 0.75)) brightness(1.12) contrast(1.12);
 }
 
 .gpnav-logo:hover .gpnav-logo-img {
-    transform: scale(1.04);
+    transform: scale(1.05);
+    filter:
+        drop-shadow(0 0 9px rgba(255, 255, 255, 0.7)) drop-shadow(0 2px 6px rgba(2, 12, 27, 0.75)) brightness(1.18) contrast(1.15);
+}
+
+/* Once the bar turns light, the halo is unnecessary and would smear the mark. */
+.gpnav.gpnav-scrolled .gpnav-logo-img {
+    filter: drop-shadow(0 2px 6px rgba(2, 12, 27, 0.18));
 }
 
 /* ---------------- Desktop nav ---------------- */
@@ -418,44 +429,78 @@ section[id] {
     z-index: 2;
 }
 
+/* Primary CTA. The soft outer glow alone read as "blurred" against the dark
+   banner, so the weight now comes from a warmer/saturated gold fill, a crisp
+   white inner rim, and a tighter shadow instead of a wide halo. */
 .gpnav-pay {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    min-height: 44px;
+    min-height: 46px;
     border-radius: 999px;
-    border: 0;
+    border: 2px solid #ffd75e;
     cursor: pointer;
-    padding: 0 22px;
-    background: linear-gradient(135deg, #f5b800 0%, #d9a300 100%);
+    padding: 0 24px;
+    background: linear-gradient(135deg, #ffcd2e 0%, #f7b500 55%, #e0a200 100%);
     color: #030f1e;
     font-family: var(--font-heading, 'Outfit', sans-serif);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 800;
+    letter-spacing: 0.2px;
     line-height: 1;
     white-space: nowrap;
-    box-shadow: 0 4px 15px rgba(245, 184, 0, 0.35);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+    box-shadow:
+        0 2px 6px rgba(2, 12, 27, 0.35),
+        0 6px 18px rgba(245, 184, 0, 0.45),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    transition: box-shadow 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+}
+
+/* Thicken the credit-card glyph to match the heavier label. */
+.gpnav-pay svg {
+    height: 17px;
+    width: 17px;
+}
+
+.gpnav-pay svg path {
+    stroke-width: 2.6;
 }
 
 .gpnav-pay:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(245, 184, 0, 0.55);
+    filter: brightness(1.06);
+    box-shadow:
+        0 3px 8px rgba(2, 12, 27, 0.35),
+        0 10px 26px rgba(245, 184, 0, 0.6),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.65);
 }
 
 .gpnav-support {
     display: none;
     align-items: center;
     justify-content: center;
-    height: 44px;
-    width: 44px;
+    height: 46px;
+    width: 46px;
     border-radius: 999px;
     cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    background: rgba(255, 255, 255, 0.08);
-    color: #f5b800;
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    border: 2px solid #ffffff;
+    background: #ffffff;
+    color: #0b2a4a;
+    box-shadow: 0 4px 14px rgba(2, 12, 27, 0.45);
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Thicken the glyph so the affordance reads at a glance, not just on hover. */
+.gpnav-support svg {
+    height: 19px;
+    width: 19px;
+}
+
+.gpnav-support svg path {
+    stroke-width: 2.6;
 }
 
 @media (min-width: 1024px) {
@@ -468,11 +513,15 @@ section[id] {
     border-color: rgba(7, 27, 18, 0.18);
     background: #f8fafc;
     color: #0072ce;
+    box-shadow: 0 2px 8px rgba(2, 12, 27, 0.12);
 }
 
 .gpnav-support:hover {
-    background: rgba(245, 184, 0, 0.18);
+    background: #f5b800;
     border-color: #f5b800;
+    color: #030f1e;
+    box-shadow: 0 6px 18px rgba(245, 184, 0, 0.5);
+    transform: translateY(-1px);
 }
 
 @media (max-width: 639px) {
@@ -685,16 +734,33 @@ section[id] {
     gap: 8px;
     margin-top: 12px;
     border-radius: 999px;
-    background: linear-gradient(135deg, #f5b800 0%, #d9a300 100%);
+    background: linear-gradient(135deg, #ffcd2e 0%, #f7b500 55%, #e0a200 100%);
     padding: 15px 20px;
     color: #030f1e;
     font-family: var(--font-heading, 'Outfit', sans-serif);
     font-size: 16px;
     font-weight: 800;
+    letter-spacing: 0.2px;
     text-decoration: none;
-    border: 0;
+    border: 2px solid #ffd75e;
     cursor: pointer;
     width: 100%;
+    box-shadow:
+        0 2px 6px rgba(2, 12, 27, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.gpnav-mobile-pay svg {
+    height: 18px;
+    width: 18px;
+}
+
+.gpnav-mobile-pay svg path {
+    stroke-width: 2.6;
+}
+
+.gpnav-mobile-pay:hover {
+    filter: brightness(1.06);
 }
 
 .gpnav-hidden {

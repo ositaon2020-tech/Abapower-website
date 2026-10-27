@@ -8,6 +8,7 @@ import {
   IconCalculator,
   IconPhone,
   IconArrowRight,
+  IconWhatsApp,
 } from './Icons';
 import { ABOUT_ROUTE_BASE } from '../data/aboutContent';
 import {
@@ -27,9 +28,8 @@ const METER_REQUEST_URL = 'https://aple.meterrequest.smartpowerbilling.com/#/abo
 /* New connection requests are handled on the in-app application page. */
 const NEW_CONNECTION_URL = `#${NEW_CONNECTION_ROUTE_BASE}`;
 
-/* Community WhatsApp group for customers joining the Aba Power network. */
-const JOIN_NETWORK_URL =
-  'https://chat.whatsapp.com/KCh5cdiIFK58NmlOyQUTex?s=cl&p=i&mlu=4&ilr=4';
+/* Community Telegram group for customers joining the Aba Power network. */
+const JOIN_NETWORK_URL = 'https://t.me/+1vysoThHNNQwMWNk';
 
 /* External destinations open in a new tab; in-app hash links stay put. */
 const externalLinkProps = (href) =>
@@ -43,7 +43,7 @@ export default function CoverageMap() {
   const quickActions = [
     {
       title: 'Make Payment',
-      tone: 'gold',
+      tone: 'navy',
       icon: IconCreditCard,
       description:
         'Need to make payment? Take advantage of our hassle-free payment channels and top up your account or meter in seconds.',
@@ -85,7 +85,7 @@ export default function CoverageMap() {
     },
     {
       title: 'Tariff Information',
-      tone: 'gold',
+      tone: 'navy',
       icon: IconCalculator,
       // Prepaid electricity meter reading kWh units — reflects the units of
       // power purchased under the NERC-approved MYTO tariff framework.
@@ -117,7 +117,7 @@ export default function CoverageMap() {
         <div className="mb-20">
           <div className="text-center mb-12" data-reveal="up">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0b2a4a] heading-font tracking-tight uppercase">
-              What Do You Want To Do Today?
+              What Are We Doing Today?
             </h2>
             <span className="block w-28 h-1.5 bg-[#F5B800] rounded-full mx-auto mt-5"></span>
           </div>
@@ -247,13 +247,13 @@ export default function CoverageMap() {
               <div className="flex-shrink-0 text-center sm:text-left">
                 <span className="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.3em] text-white/70 uppercase mb-4">
                   <span className="w-2 h-2 rounded-full bg-[#F5B800] animate-pulse"></span>
-                  Integrity & Transparency
+                  Community Protection
                 </span>
                 <h3 className="text-4xl sm:text-5xl font-extrabold heading-font text-white leading-[1.05] tracking-tight">
-                  See Something,
+                  Report Energy Theft
                 </h3>
                 <h3 className="text-4xl sm:text-5xl font-extrabold heading-font bg-gradient-to-r from-[#F5B800] to-[#ffe08a] bg-clip-text text-transparent leading-[1.05] tracking-tight">
-                  Say Something
+                  and Vandalism
                 </h3>
               </div>
 
@@ -337,7 +337,7 @@ export default function CoverageMap() {
                   As the 12th Disco in Nigeria, we are providing electricity with excellent service delivery, operating with high safety standards. And we are even closer to our customers than ever.
                 </p>
 
-                <div className="flex flex-wrap gap-4 mt-8">
+                <div className="flex flex-row flex-wrap items-center gap-4 mt-8">
                   <a
                     href={`#${ABOUT_ROUTE_BASE}`}
                     className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#0072CE] to-[#005fb3] text-white font-bold hover:from-[#0080ff] hover:to-[#0072CE] hover:-translate-y-0.5 transition-all shadow-lg shadow-[#0072CE]/35"
@@ -346,12 +346,13 @@ export default function CoverageMap() {
                     <IconArrowRight className="w-5 h-5" />
                   </a>
                   <a
-                    href={JOIN_NETWORK_URL}
+                    href="https://whatsapp.com/channel/0029VajSPIB5a245kPcnFS0C"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border-2 border-[#0b2a4a]/20 text-[#0b2a4a] font-bold hover:border-[#0b2a4a] hover:bg-[#0b2a4a] hover:text-white transition-all"
+                    className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border-2 border-[#0b2a4a]/20 text-[#0b2a4a] font-bold hover:border-[#25D366] hover:bg-[#25D366] hover:text-white transition-all"
                   >
-                    <span>Join our Network</span>
+                    <IconWhatsApp className="w-5 h-5 text-[#25D366] transition-colors group-hover:text-white" />
+                    <span>Aba Power channel on WhatsApp</span>
                     <IconArrowRight className="w-5 h-5" />
                   </a>
                 </div>

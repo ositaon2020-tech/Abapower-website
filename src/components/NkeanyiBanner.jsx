@@ -1,24 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IconArrowRight } from './Icons';
 import {
   PLAY_STORE_URL,
   APP_STORE_URL,
   getAppStoreUrl,
+  getSmartAppUrl,
 } from '../lib/appLinks';
 
 /**
  * The QR code encodes a same-origin landing page rather than a fixed store
  * URL, so a phone that scans it is forwarded to the correct store for its
  * platform (Play Store for Android, App Store for iOS).
+ *
+ * The URL is derived from the live origin (see getSmartAppUrl) so the code is
+ * correct on localhost, staging, a sub-path deployment and production alike —
+ * no hard-coded domain that can go stale.
  */
-const SMART_APP_URL = 'https://abapower.com/get-app.html';
+const SMART_APP_URL = getSmartAppUrl();
 
-// Generate the QR dynamically so it always encodes the current smart link.
-const QR_SRC = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=0&color=0b2a4a&bgcolor=ffffff&data=${encodeURIComponent(
-  SMART_APP_URL
-)}`;
+/**
+ * Two independent, free QR services. The primary is used first; if its request
+ * fails (network hiccup, provider outage) we transparently fall back to the
+ * second so the banner never shows a broken image.
+ */
+const qrFor = (provider, data) => {
+  const encoded = encodeURIComponent(data);
+  if (provider === 'quickchart') {
+    return `https://quickchart.io/qr?size=320&margin=1&dark=0b2a4a&light=ffffff&text=${encoded}`;
+  }
+  return `https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=0&color=0b2a4a&bgcolor=ffffff&data=${encoded}`;
+};
+
+const QR_SOURCES = [qrFor('qrserver', SMART_APP_URL), qrFor('quickchart', SMART_APP_URL)];
 
 export default function NkeanyiBanner() {
+  const [qrIndex, setQrIndex] = useState(0);
   return (
     <section className="section-shade relative z-20 pt-12 border-t border-[#0072CE]/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,7 +63,7 @@ export default function NkeanyiBanner() {
                   Download Nkeanyi App
                 </h2>
                 <p className="text-slate-100 text-sm sm:text-base font-medium leading-relaxed max-w-xl mt-2">
-                  Pay bills instantly, check arrears with ease, view map refunds and more.
+                  Get real-time insight into your account activity, pay bills and lots more
                 </p>
               </div>
 
@@ -107,7 +123,10 @@ export default function NkeanyiBanner() {
                 className="apl-float-slow group bg-white p-3 rounded-2xl shadow-2xl transition-transform duration-500 hover:scale-105"
               >
                 <img
-                  src={QR_SRC}
+                  src={QR_SOURCES[qrIndex]}
+                  onError={() =>
+                    setQrIndex((i) => (i + 1 < QR_SOURCES.length ? i + 1 : i))
+                  }
                   alt="QR code to download the Nkeanyi App on the App Store or Google Play"
                   className="w-28 h-28 sm:w-36 sm:h-36 object-contain"
                   loading="lazy"
