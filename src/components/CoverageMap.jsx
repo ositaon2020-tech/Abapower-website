@@ -264,17 +264,17 @@ export default function CoverageMap() {
                   </span>
                   <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4">
                     <a
-                      href="tel:09162788075"
+                      href="tel:07001238280"
                       aria-label="Call the whistle blowing line"
                       className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#F5B800] to-[#d9a300] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#F5B800]/30 hover:scale-105 transition-transform"
                     >
                       <IconPhone className="w-7 h-7 text-[#030f1e]" />
                     </a>
                     <a
-                      href="tel:09162788075"
+                      href="tel:07001238280"
                       className="text-white font-extrabold heading-font text-2xl sm:text-3xl lg:text-4xl tracking-tight hover:text-[#F5B800] transition-colors"
                     >
-                      09162788075
+                      07001238280
                     </a>
                   </div>
                   <span className="block text-white/50 text-[11px] font-medium mt-4">

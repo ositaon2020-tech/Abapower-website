@@ -91,11 +91,11 @@ export default function Footer({ onOpenPayModal, onOpenSupportModal }) {
                 <span>Suite 300, Aba Power Plaza, No.2 Aba Power Road Osisioma-Aba, Abia State</span>
               </div>
               <div className="flex items-center gap-2 text-[#0b2a4a] font-bold">
-                <IconPhone className="w-4 h-4 text-[#F5B800] flex-shrink-0" />
+                <IconMessageSquare className="w-4 h-4 text-[#F5B800] flex-shrink-0" />
                 <span>09162788075</span>
               </div>
               <div className="flex items-center gap-2 text-[#0b2a4a] font-bold">
-                <IconMessageSquare className="w-4 h-4 text-[#F5B800] flex-shrink-0" />
+                <IconPhone className="w-4 h-4 text-[#F5B800] flex-shrink-0" />
                 <span>+234 909 186 6376</span>
               </div>
 
