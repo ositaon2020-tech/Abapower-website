@@ -49,6 +49,7 @@ export const METERING_HERO = {
         { value: '0%', label: 'Upfront for eligible band' },
         { value: '5', label: 'Working days application review' },
         { value: '24/7', label: 'Portal access' },
+        { value: '200+', label: 'Metered end to end' },
     ],
 };
 
